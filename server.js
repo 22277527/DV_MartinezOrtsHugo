@@ -15,24 +15,23 @@ const server = http.createServer((req, res) => {
 
     const results = [];
 
-    // Lee el archivo CSV y lo imprime en la terminal
+    // Lee el archivo CSV y almacena los datos
     fs.createReadStream(csvPath)
       .pipe(csv())
       .on('data', (data) => {
-        console.log(data); // Imprime cada fila del CSV en la terminal
-        results.push(data);
+        results.push(data); // Almacena los datos de cada fila
       })
       .on('end', () => {
-        console.log('CSV Parsing Finished!');
+        // Enviar los datos como JSON al navegador
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(results)); // Envia los datos como JSON
       })
       .on('error', (err) => {
         // Si hay un error al leer el archivo
         console.error('Error reading CSV file:', err);
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Error reading CSV file');
       });
-    
-    // Enviar una respuesta vacía por ahora
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('CSV Data is being logged in the terminal');
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Page not found');

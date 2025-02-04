@@ -9,6 +9,9 @@
     body {
       padding-top: 50px;
     }
+    table {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -16,6 +19,16 @@
     <div class="jumbotron">
       <h1>CSV Loader</h1>
       <button id="loadCsv" class="btn btn-primary">Load CSV</button>
+      <table id="csvTable" class="table table-striped" style="display: none;">
+        <thead>
+          <tr>
+            <!-- Los encabezados de la tabla se llenarán dinámicamente -->
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Las filas se llenarán dinámicamente -->
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -31,12 +44,43 @@
         // Convierte la respuesta en JSON
         const data = await response.json();
 
-        // Muestra los datos en la consola
+        // Muestra los datos en la consola (solo para depuración)
         console.log('CSV Data:', data);
 
-        // Ejemplo: Accede a una fila específica
-        console.log('First Row:', data[0]); // Primera fila
-        console.log('Year of First Row:', data[0]?.Year); // Accede a una columna específica, ajusta según el nombre de la columna
+        // Muestra la tabla
+        const table = document.getElementById('csvTable');
+        const thead = table.querySelector('thead tr');
+        const tbody = table.querySelector('tbody');
+
+        // Si la tabla ya tiene filas, las eliminamos antes de mostrar nuevas
+        tbody.innerHTML = '';
+        thead.innerHTML = '';
+
+        // Si hay datos, llenamos la tabla
+        if (data.length > 0) {
+          // Generamos los encabezados de la tabla dinámicamente
+          const headers = Object.keys(data[0]);
+          headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            thead.appendChild(th);
+          });
+
+          // Generamos las filas de la tabla dinámicamente
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+              const td = document.createElement('td');
+              td.textContent = row[header];
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+
+          // Mostramos la tabla
+          table.style.display = 'table';
+        }
+
       } catch (error) {
         console.error('Error:', error);
       }
