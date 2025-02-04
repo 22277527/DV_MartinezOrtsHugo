@@ -1,12 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Loader</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 50px;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>CSV Loader</h1>
+      <button id="loadCsv" class="btn btn-primary">Load CSV</button>
+    </div>
+  </div>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+  <script>
+    document.getElementById('loadCsv').addEventListener('click', async () => {
+      try {
+        // Realiza la solicitud al servidor para obtener los datos del CSV
+        const response = await fetch('/data');
+        if (!response.ok) {
+          throw new Error(`Error loading CSV: ${response.statusText}`);
+        }
 
+        // Convierte la respuesta en JSON
+        const data = await response.json();
+
+        // Muestra los datos en la consola
+        console.log('CSV Data:', data);
+
+        // Ejemplo: Accede a una fila específica
+        console.log('First Row:', data[0]); // Primera fila
+        console.log('Year of First Row:', data[0]?.Year); // Accede a una columna específica, ajusta según el nombre de la columna
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
 </body>
 </html>
