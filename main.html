@@ -33,6 +33,9 @@
   </div>
 
   <script>
+    // Variable global para almacenar los datos del CSV
+    let csvData = [];
+
     document.getElementById('loadCsv').addEventListener('click', async () => {
       try {
         // Realiza la solicitud al servidor para obtener los datos del CSV
@@ -42,10 +45,10 @@
         }
 
         // Convierte la respuesta en JSON
-        const data = await response.json();
+        csvData = await response.json();  // Guardamos los datos en la variable global
 
         // Muestra los datos en la consola (solo para depuración)
-        console.log('CSV Data:', data);
+        console.log('CSV Data:', csvData);
 
         // Muestra la tabla
         const table = document.getElementById('csvTable');
@@ -57,9 +60,9 @@
         thead.innerHTML = '';
 
         // Si hay datos, llenamos la tabla
-        if (data.length > 0) {
+        if (csvData.length > 0) {
           // Generamos los encabezados de la tabla dinámicamente
-          const headers = Object.keys(data[0]);
+          const headers = Object.keys(csvData[0]);
           headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header;
@@ -67,7 +70,7 @@
           });
 
           // Generamos las filas de la tabla dinámicamente
-          data.forEach(row => {
+          csvData.forEach(row => {
             const tr = document.createElement('tr');
             headers.forEach(header => {
               const td = document.createElement('td');
@@ -85,6 +88,14 @@
         console.error('Error:', error);
       }
     });
+  </script>
+
+  <script>
+    // Desde la consola del navegador, puedes ahora acceder a `csvData`
+    // Por ejemplo:
+    // - Ver todas las filas: console.log(csvData)
+    // - Acceder a una fila específica: console.log(csvData[0]) // Primer fila
+    // - Acceder a una columna específica (por ejemplo, "Year"): console.log(csvData.map(row => row["Year"]))
   </script>
 </body>
 </html>
