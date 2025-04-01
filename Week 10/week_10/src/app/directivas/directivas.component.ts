@@ -12,4 +12,6 @@ import { Component } from '@angular/core';
 })
 export class DirectivasComponent {
   mostrar: boolean = true;
+  frutas: string[]= ["manzana","pera","naranja"]
+
 }
