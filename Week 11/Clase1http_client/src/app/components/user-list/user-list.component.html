@@ -1,0 +1,9 @@
+<h2>User list</h2>
+<ul class="list-group">
+  <li *ngFor="let user of users" class="list-group-item">
+    {{user.name}}
+    <a [routerLink]="['/usuarios',user.id]" class="btn btn-sm btn-primary float-end">
+        Show details
+    </a>
+  </li>
+</ul>
