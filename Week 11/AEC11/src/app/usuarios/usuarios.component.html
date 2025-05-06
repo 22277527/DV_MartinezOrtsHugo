@@ -1,0 +1,20 @@
+<h2>Gestión de Usuarios</h2>
+
+<input type="text" [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre" />
+<label>
+  <input type="checkbox" [(ngModel)]="nuevoUsuario.activo" />
+  Activo
+</label>
+<button (click)="agregarUsuario()">Agregar</button>
+
+<hr />
+
+<ul>
+  <li *ngFor="let usuario of usuarios">
+    {{ usuario.nombre }} - {{ usuario.activo ? 'Activo' : 'Inactivo' }}
+    <button (click)="actualizarUsuario(usuario)">
+      {{ usuario.activo ? 'Desactivar' : 'Activar' }}
+    </button>
+    <button (click)="eliminarUsuario(usuario.id!)">Eliminar</button>
+  </li>
+</ul>

@@ -1,7 +1,20 @@
-<p>usuario works!</p>
-<div [ngClass]="{'activo': activo, 'inactivo': !activo}" class="usuario-container">
-    <p>Nombre: {{ nombre }}</p>
-    <p>Estado: {{ activo ? 'Activo' : 'Inactivo' }}</p>
-    <button (click)="enviarSaludo()">Saludar</button>
-    <button (click)="toggleEstado()">Cambiar Estado</button>
-  </div>
+<div
+  [ngClass]="{ 'activo': usuario.activo, 'inactivo': !usuario.activo }"
+  [ngStyle]="{ 'border': '1px solid black', 'margin': '10px', 'padding': '10px' }">
+  <p>👤 {{ usuario.nombre }}</p>
+  <p>Estado: {{ usuario.activo ? 'Activo ✅' : 'Inactivo ❌' }}</p>
+  <button (click)="enviarSaludo()">Saludar</button>
+</div>
+
+<div
+  [ngClass]="{ 'activo': usuario.activo, 'inactivo': !usuario.activo }"
+  [ngStyle]="{ 'border': '1px solid black', 'margin': '10px', 'padding': '10px' }">
+  
+  <p>👤 {{ usuario.nombre }}</p>
+  <p>Estado: {{ usuario.activo ? 'Activo ✅' : 'Inactivo ❌' }}</p>
+
+  <button (click)="enviarSaludo()">Saludar</button>
+  <button (click)="cambiarEstadoActivo()">
+    {{ usuario.activo ? 'Desactivar' : 'Activar' }}
+  </button>
+</div>

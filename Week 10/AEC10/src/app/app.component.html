@@ -1,10 +1,16 @@
-<h1>Lista de Usuarios</h1>
-<div class="usuarios-container">
-  <app-usuario
-    *ngFor="let usuario of usuarios; let i = index"
-    [nombre]="usuario.nombre"
-    [activo]="usuario.activo"
-    (saludar)="manejarSaludo($event)" <!-- ✅ Ahora recibe un string correctamente -->
-    (cambiarEstado)="cambiarEstado(i)">
-  </app-usuario>
-</div>
+<h2>Lista de Usuarios</h2>
+
+<app-usuario
+  *ngFor="let usuario of usuarios"
+  [usuario]="usuario"
+  (saludo)="recibirSaludo($event)">
+</app-usuario>
+
+<p *ngIf="mensajeRecibido">📩 {{ mensajeRecibido }}</p>
+
+<app-usuario
+  *ngFor="let usuario of usuarios"
+  [usuario]="usuario"
+  (saludo)="recibirSaludo($event)"
+  (cambiarEstado)="cambiarEstadoUsuario($event)">
+</app-usuario>

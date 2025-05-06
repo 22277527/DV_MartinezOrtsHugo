@@ -1,26 +1,31 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // 👈 Importa CommonModule
-import { UsuarioComponent } from './usuario/usuario.component'; // 👈 Importa el componente hijo
+import { UsuarioComponent } from './usuario/usuario.component'; // 👈 importa el componente hijo
+import { CommonModule } from '@angular/common'; // para *ngFor, ngClass, ngStyle
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, UsuarioComponent], // 👈 IMPORTANTE: Añadir CommonModule y UsuarioComponent aquí
+  imports: [CommonModule, UsuarioComponent], // 👈 registra el componente hijo aquí
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   usuarios = [
-    { nombre: 'Juan', activo: true },
-    { nombre: 'Maria', activo: false },
-    { nombre: 'Carlos', activo: true }
+    { id: 1, nombre: 'Ana', activo: true },
+    { id: 2, nombre: 'Bruno', activo: false },
+    { id: 3, nombre: 'Carmen', activo: true }
   ];
 
-  manejarSaludo(mensaje: string) {
-    alert(mensaje);
-  }
+  mensajeRecibido = '';
 
-  cambiarEstado(index: number) {
-    this.usuarios[index].activo = !this.usuarios[index].activo;
+  recibirSaludo(mensaje: string) {
+    this.mensajeRecibido = mensaje;
   }
+  cambiarEstadoUsuario(id: number) {
+    const usuario = this.usuarios.find(u => u.id === id);
+    if (usuario) {
+      usuario.activo = !usuario.activo;
+    }
+  }
+  
 }

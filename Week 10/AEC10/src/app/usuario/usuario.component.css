@@ -1,16 +1,10 @@
-.usuario-container {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
-    text-align: center;
-    width: 200px;
-  }
-  
-  .activo {
-    background-color: lightgreen;
+.activo {
+    background-color: #d4f4dd;
+    color: green;
   }
   
   .inactivo {
-    background-color: lightcoral;
+    background-color: #f4d4d4;
+    color: red;
   }
+  

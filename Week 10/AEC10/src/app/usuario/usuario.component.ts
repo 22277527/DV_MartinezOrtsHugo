@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule], // 👈 Importa CommonModule aquí también
+  imports: [CommonModule],
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent {
-  @Input() nombre!: string;
-  @Input() activo!: boolean;
-  @Output() saludar = new EventEmitter<string>();
-  @Output() cambiarEstado = new EventEmitter<void>();
+  @Input() usuario!: { id: number, nombre: string, activo: boolean };
+  @Output() saludo = new EventEmitter<string>();
+  @Output() cambiarEstado = new EventEmitter<number>();
+
 
   enviarSaludo() {
-    this.saludar.emit(`Hola, soy ${this.nombre}`);
+    this.saludo.emit(`Hola desde ${this.usuario.nombre}!`);
   }
 
-  toggleEstado() {
-    this.cambiarEstado.emit();
-  }
+cambiarEstadoActivo() {
+  this.cambiarEstado.emit(this.usuario.id);
+}
 }
